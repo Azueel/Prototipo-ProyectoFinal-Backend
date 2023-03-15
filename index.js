@@ -18,6 +18,7 @@ app.use(express.static('public'));
 
 app.use('/auth', require('./routes/auth'));
 app.use('/admin', require('./routes/admin'));
+app.use('/shop', require('./routes/shop'));
 
 //llamar a mi servidor
 app.listen(process.env.PORT, () => {

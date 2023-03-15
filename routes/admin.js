@@ -6,6 +6,8 @@ const {
 	cargarUsuarios,
 	eliminarProducto,
 	editarProducto,
+	cargarPedidos,
+	confirmarPedido,
 } = require('../controllers/admin');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validarCampos');
@@ -33,5 +35,9 @@ routerAdmin.get('/usuarios', validarJWT, cargarUsuarios);
 routerAdmin.delete('/eliminar/:id', validarJWT, eliminarProducto);
 
 routerAdmin.put('/editar', validarJWT, editarProducto);
+
+routerAdmin.get('/pedido', validarJWT, cargarPedidos);
+
+routerAdmin.put('/confirmar', confirmarPedido);
 
 module.exports = routerAdmin;

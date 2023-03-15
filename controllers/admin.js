@@ -1,5 +1,6 @@
 const Producto = require('../model/producto-model');
 const Usuario = require('../model/usuario-model');
+const Pedido = require('../model/pedido-model');
 
 const crearProducto = async (req, res) => {
 	try {
@@ -108,10 +109,57 @@ const editarProducto = async (req, res) => {
 	}
 };
 
+const cargarPedidos = async (req, res) => {
+	try {
+		const pedido = await Pedido.find();
+
+		res.status(200).json({
+			ok: true,
+			pedido,
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			ok: false,
+			msg: 'hable con el administrador',
+		});
+	}
+};
+
+const confirmarPedido = async (req, res) => {
+	try {
+		const pedidoConfirmar = await Pedido.findById(req.body._id);
+
+		if (!pedidoConfirmar) {
+			return res.status(404).json({
+				ok: false,
+				msg: 'No existe ningun Producto con este Id',
+			});
+		}
+
+		pedidoConfirmar.estado = 'confirmado';
+
+		await pedidoConfirmar.save();
+
+		res.status(200).json({
+			ok: true,
+			msg: 'producto confirmado',
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			ok: false,
+			msg: 'hable con el administrador',
+		});
+	}
+};
+
 module.exports = {
 	crearProducto,
 	cargarProductos,
 	cargarUsuarios,
 	eliminarProducto,
 	editarProducto,
+	cargarPedidos,
+	confirmarPedido,
 };

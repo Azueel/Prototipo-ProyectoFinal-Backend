@@ -20,6 +20,10 @@ const UsuarioSchema = Schema({
 		type: String,
 		default: 'usuario',
 	},
+
+	// estado:{
+	// 	default:"Activado"
+	// }
 });
 
 module.exports = model('Usuario', UsuarioSchema);
